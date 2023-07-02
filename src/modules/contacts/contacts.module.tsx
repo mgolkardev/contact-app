@@ -20,12 +20,12 @@ export const ContactsModule = () => {
       />
 
       <Grid
-        className="bg-slate-800 p-5 rounded-2xl"
+        className="bg-white p-5"
         isLoading={isLoading}
-        error={(!isLoading && !data) || !!error}
+        error={(!isLoading && !data) || data?.meta.total === 0 || !!error}
       >
         {data?.items?.map((contact) => (
-          <Link key={contact.id} href={`/contacts/${contact.id}`}>
+          <Link key={contact.id} href={`/contact/${contact.id}`}>
             <div className="flex items-center gap-4">
               <img
                 src={contact.avatar}
@@ -34,11 +34,11 @@ export const ContactsModule = () => {
                 height={48}
               />
               <span className="flex flex-col gap-2">
-                <span className="text-gray-400">
+                <span className="text-black">
                   {contact.first_name} {contact.last_name}
                 </span>
-                <span className="text-gray-400 text-xs">
-                  <Link href={`tel:${contact.phone}`}>{contact.phone}</Link>
+                <span className="text-black text-xs">
+                  {contact.phone}
                 </span>
               </span>
             </div>
