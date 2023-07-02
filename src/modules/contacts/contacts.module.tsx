@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ContactsFilter } from "./components/contacts-filter/contacts-filter.component";
 import { useContacts } from "./hooks/contacts.hook";
 import { Scroller, Link } from "../../common/components";
+import { ContactsRecent } from "./components/contacts-recent/contacts-recent.component";
 
 export const ContactsModule = () => {
   const [query, setQuery] = useState<string>();
@@ -31,8 +32,8 @@ export const ContactsModule = () => {
         error={
           (!(isFetching || isFetchingNextPage) && !data) ||
           data?.pages
-          .flatMap((x) => x.items)
-          .length === 0 ||
+            .flatMap((x) => x.items)
+            .length === 0 ||
           !!error
         }
         pagination={{
@@ -42,6 +43,8 @@ export const ContactsModule = () => {
           },
         }}
       >
+        {!query && <ContactsRecent />}
+
         {data?.pages
           .flatMap((x) => x.items)
           .map((contact) => (
