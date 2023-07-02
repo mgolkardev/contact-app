@@ -1,8 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from './common/utils/react-query-client';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./common/utils/react-query-client";
 
 function App() {
   return (
