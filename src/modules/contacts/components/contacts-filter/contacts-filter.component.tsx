@@ -7,7 +7,7 @@ export const ContactsFilter = ({ onChange }: ContactsFilterProperties) => {
   const [inputValue] = useDebounce(query, 1000);
 
   useEffect(() => {
-    onChange(inputValue);
+    onChange(inputValue.trim());
   }, [inputValue]);
 
   return (
