@@ -37,9 +37,7 @@ export const ContactsModule = () => {
                 <span className="text-black">
                   {contact.first_name} {contact.last_name}
                 </span>
-                <span className="text-black text-xs">
-                  {contact.phone}
-                </span>
+                <span className="text-black text-xs">{contact.phone}</span>
               </span>
             </div>
           </Link>
