@@ -31,9 +31,7 @@ export const ContactsModule = () => {
         isLoading={isFetching || isFetchingNextPage}
         error={
           (!(isFetching || isFetchingNextPage) && !data) ||
-          data?.pages
-            .flatMap((x) => x.items)
-            .length === 0 ||
+          data?.pages.flatMap((x) => x.items).length === 0 ||
           !!error
         }
         pagination={{
