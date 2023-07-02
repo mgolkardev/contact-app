@@ -1,6 +1,7 @@
 import { useContact } from "./hooks/contact.hook";
-import { Scroller, Link } from "../../common/components";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useRecentContacts } from "./hooks/recent-contact.hook";
 
 export const ContactModule = () => {
   const { id } = useParams();
@@ -8,6 +9,15 @@ export const ContactModule = () => {
   let navigate = useNavigate();
 
   const { data, isFetching, error } = useContact(parseInt(id ?? "0"));
+  const { setRecents } = useRecentContacts();
+
+  useEffect(() => {
+    setRecents(data);
+  }, [data]);
+
+  if (isFetching) {
+    return <div className="text-center">Loading...</div>;
+  }
 
   if (error || !data) {
     return <div className="text-center">Not Found</div>;
