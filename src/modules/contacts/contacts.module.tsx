@@ -16,8 +16,6 @@ export const ContactsModule = () => {
     error,
   } = useContacts(query);
 
-  console.log(data?.pages);
-
   return (
     <div>
       <h1 className="font-bold text-2xl mb-6">Contacts</h1>
