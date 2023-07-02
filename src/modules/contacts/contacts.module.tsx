@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { ContactsFilter } from "./components/contacts-filter/contacts-filter.component";
 import { useContacts } from "./hooks/contacts.hook";
-import { Grid, Link } from "../../common/components";
+import { Scroller, Link } from "../../common/components";
+import { CONTACTS_PER_PAGE } from "./apis/constants/contacts.constant";
 
 export const ContactsModule = () => {
-  const [page, setPage] = useState<number>();
   const [query, setQuery] = useState<string>();
 
-  const { data, isLoading, error } = useContacts(page, query);
+  const {
+    data,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    error,
+  } = useContacts(query);
+
+  console.log(data?.pages);
 
   return (
     <div>
@@ -19,30 +28,42 @@ export const ContactsModule = () => {
         }}
       />
 
-      <Grid
+      <Scroller
         className="bg-white p-5"
-        isLoading={isLoading}
-        error={(!isLoading && !data) || data?.meta.total === 0 || !!error}
+        isLoading={isFetching || isFetchingNextPage}
+        error={
+          (!(isFetching || isFetchingNextPage) && !data) ||
+          data?.pages.length === 0 ||
+          !!error
+        }
+        pagination={{
+          hasMore: hasNextPage,
+          onEnd: () => {
+            fetchNextPage();
+          },
+        }}
       >
-        {data?.items?.map((contact) => (
-          <Link key={contact.id} href={`/contact/${contact.id}`}>
-            <div className="flex items-center gap-4">
-              <img
-                src={contact.avatar}
-                alt={contact.first_name}
-                width={48}
-                height={48}
-              />
-              <span className="flex flex-col gap-2">
-                <span className="text-black">
-                  {contact.first_name} {contact.last_name}
+        {data?.pages
+          .flatMap((x) => x.items)
+          ?.map((contact) => (
+            <Link key={contact.id} href={`/contact/${contact.id}`}>
+              <div className="flex items-center gap-4">
+                <img
+                  src={contact.avatar}
+                  alt={contact.first_name}
+                  width={72}
+                  height={72}
+                />
+                <span className="flex flex-col gap-2">
+                  <span className="text-black">
+                    {contact.first_name} {contact.last_name}
+                  </span>
+                  <span className="text-black text-xs">{contact.phone}</span>
                 </span>
-                <span className="text-black text-xs">{contact.phone}</span>
-              </span>
-            </div>
-          </Link>
-        ))}
-      </Grid>
+              </div>
+            </Link>
+          ))}
+      </Scroller>
     </div>
   );
 };

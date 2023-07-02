@@ -9,7 +9,7 @@ export const getContacts = async (page: number, query?: string) => {
     {
       params: {
         limit: CONTACTS_PER_PAGE,
-        skip: page * CONTACTS_PER_PAGE,
+        skip: page,
         where: query
           ? JSON.stringify({
               first_name: { contains: query },
