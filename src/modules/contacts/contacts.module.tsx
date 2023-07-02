@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ContactsFilter } from "./components/contacts-filter/contacts-filter.component";
 import { useContacts } from "./hooks/contacts.hook";
 import { Scroller, Link } from "../../common/components";
-import { CONTACTS_PER_PAGE } from "./apis/constants/contacts.constant";
 
 export const ContactsModule = () => {
   const [query, setQuery] = useState<string>();
@@ -31,7 +30,9 @@ export const ContactsModule = () => {
         isLoading={isFetching || isFetchingNextPage}
         error={
           (!(isFetching || isFetchingNextPage) && !data) ||
-          data?.pages.length === 0 ||
+          data?.pages
+          .flatMap((x) => x.items)
+          .length === 0 ||
           !!error
         }
         pagination={{
@@ -43,7 +44,7 @@ export const ContactsModule = () => {
       >
         {data?.pages
           .flatMap((x) => x.items)
-          ?.map((contact) => (
+          .map((contact) => (
             <Link key={contact.id} href={`/contact/${contact.id}`}>
               <div className="flex items-center gap-4">
                 <img
