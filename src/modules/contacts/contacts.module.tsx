@@ -4,6 +4,7 @@ import { useContacts } from "./hooks/contacts.hook";
 import { Scroller, Link } from "../../common/components";
 import { ContactsRecent } from "./components/contacts-recent/contacts-recent.component";
 import { useRecentContacts } from "../contact/hooks/recent-contact.hook";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
 
 export const ContactsModule = () => {
   const [query, setQuery] = useState<string>();
@@ -52,19 +53,20 @@ export const ContactsModule = () => {
           .flatMap((x) => x.items)
           .map((contact) => (
             <Link key={contact.id} href={`/contact/${contact.id}`}>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 cursor-pointer">
                 <img
                   src={contact.avatar}
                   alt={contact.first_name}
                   width={72}
                   height={72}
                 />
-                <span className="flex flex-col gap-2">
+                <span className="flex flex-col gap-2 flex-1">
                   <span className="text-black">
                     {contact.first_name} {contact.last_name}
                   </span>
                   <span className="text-black text-xs">{contact.phone}</span>
                 </span>
+                <ArrowSmallRightIcon width={24} />
               </div>
             </Link>
           ))}
