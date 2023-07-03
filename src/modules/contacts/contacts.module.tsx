@@ -44,10 +44,14 @@ export const ContactsModule = () => {
           },
         }}
       >
-        {!query && <>
-          <ContactsRecent />
-          {recents.length > 0 && <h1 className="font-bold text-lg mb-2">All Contacts</h1>}
-        </>}
+        {!query && (
+          <>
+            <ContactsRecent />
+            {recents.length > 0 && (
+              <h1 className="font-bold text-lg mb-2">All Contacts</h1>
+            )}
+          </>
+        )}
 
         {data?.pages
           .flatMap((x) => x.items)

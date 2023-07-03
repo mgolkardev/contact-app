@@ -44,17 +44,25 @@ export const ContactModule = () => {
       <div>
         <div className="h-24 bg-green-950 rounded-lg relative">
           <div className="w-24 h-24 bg-green-950 border border-primary rounded-full absolute right-4 bottom-0 translate-y-1/2 flex items-center justify-center">
-            <img className="" src={data.avatar} alt={data.first_name} width={60} height={60} />
+            <img
+              className=""
+              src={data.avatar}
+              alt={data.first_name}
+              width={60}
+              height={60}
+            />
           </div>
           <span className="flex flex-col gap-2 p-3 text-white">
             <span>
               {data.first_name} {data.last_name}
             </span>
             <span className="text-gray-400 text-xs">Phone: {data.phone}</span>
-            <span className="text-gray-400 text-xs">Company: {data.company}</span>
+            <span className="text-gray-400 text-xs">
+              Company: {data.company}
+            </span>
           </span>
         </div>
-            <p className="text-black text-xs mt-2 pr-32">{data.note}</p>
+        <p className="text-black text-xs mt-2 pr-32">{data.note}</p>
       </div>
     </div>
   );
