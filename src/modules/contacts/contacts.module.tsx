@@ -3,9 +3,11 @@ import { ContactsFilter } from "./components/contacts-filter/contacts-filter.com
 import { useContacts } from "./hooks/contacts.hook";
 import { Scroller, Link } from "../../common/components";
 import { ContactsRecent } from "./components/contacts-recent/contacts-recent.component";
+import { useRecentContacts } from "../contact/hooks/recent-contact.hook";
 
 export const ContactsModule = () => {
   const [query, setQuery] = useState<string>();
+  const { recents } = useRecentContacts();
 
   const {
     data,
@@ -41,7 +43,10 @@ export const ContactsModule = () => {
           },
         }}
       >
-        {!query && <ContactsRecent />}
+        {!query && <>
+          <ContactsRecent />
+          {recents.length > 0 && <h1 className="font-bold text-lg mb-2">All Contacts</h1>}
+        </>}
 
         {data?.pages
           .flatMap((x) => x.items)

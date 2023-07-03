@@ -10,6 +10,8 @@ export const ContactsRecent = () => {
 
   return (
     <div>
+      <h1 className="font-bold text-lg mb-2">Recent</h1>
+
       <div className="grid grid-cols-4 gap-2 pb-2">
         {recents.map((contact) => (
           <Link key={contact.id} href={`/contact/${contact.id}`}>
